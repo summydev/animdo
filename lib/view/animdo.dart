@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class Animdo extends StatefulWidget {
@@ -11,7 +9,7 @@ class Animdo extends StatefulWidget {
 
 class _AnimdoState extends State<Animdo> {
   double _buttonRadius = 100.0;
-  // final Tween<double> _backgroundScale= ;
+  final Tween<double> _backgroundScale= Tween<double>( begin: 0.0, end: 1.0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +27,16 @@ class _AnimdoState extends State<Animdo> {
   }
 
   Widget _pageBackground(){
-    return Placeholder(
+    return TweenAnimationBuilder(
+      curve: Curves.easeInOutQuad,
+      tween:_backgroundScale ,
+      duration: Duration(seconds: 2),
+      builder: (_context,double _scale,_child){
+        return Transform.scale(
+          scale: _scale,
+          child: _child,
+        );
+      },
       child: Container(
         color: Colors.blue,
       ),
